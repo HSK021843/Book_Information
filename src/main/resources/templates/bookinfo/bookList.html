@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 목록</title>
+    <link rel="stylesheet" th:href="@{/css/bookList.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>도서 목록</h2>
+        <table class="book_list">
+            <colgroup>
+                <col width="10%" />
+                <col width="20%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="10%" />
+                <col width="*" />
+                <col width="15%" />
+                <col width="15%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">저자</th>
+                    <th scope="col">출판사</th>
+                    <th scope="col">출판일</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">생성일</th>
+                    <th scope="col">수정일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.size(list)} > 0" th:each="book : ${list}">
+                    <td th:text="${book.bookId}"></td>
+                    <td><a th:href="@{/bookinfo/openBookDetail.do(bookId=${book.bookId})}" th:text="${book.title}" class="title"></a></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${book.date}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.createdAt}"></td>
+                    <td th:text="${book.updatedAt}"></td>
+                </tr>
+                <tr th:unless="${#lists.size(list)} > 0">
+                    <td colspan="8">조회된 결과가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/bookinfo/infoWrite.do" class="btn">도서 정보 추가</a>
+    </div>
+</body>
+</html>

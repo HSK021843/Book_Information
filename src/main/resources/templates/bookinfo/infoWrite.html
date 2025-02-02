@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>책 정보 추가</title>
+    <link rel="stylesheet" type="text/css" href="/css/bookList.css">
+    <link rel="stylesheet" type="text/css" href="/css/infoWrite.css">
+</head>
+<body>
+    <div class="container">
+        <h2>책 정보 추가</h2>
+        <div class="form-container">
+            <form th:action="@{/bookinfo/addBook.do}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="author">저자</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <div class="form-group">
+                    <label for="publisher">출판사</label>
+                    <input type="text" id="publisher" name="publisher">
+                </div>
+                <div class="form-group">
+                    <label for="date">출판일</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" id="isbn" name="isbn" required>
+                </div>
+                <div class="form-group">
+                    <label for="text">도서 설명</label>
+                    <textarea id="text" name="text" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                	<label for="image">표지 이미지</label>
+                	<input type="file" id="files" name="files" multiple="multiple" />
+                </div>
+                <div class="form-group">
+                    <button type="submit">추가</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* 제목 스타일 */
+h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* 테이블 스타일 */
+table.book_list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table.book_list th, table.book_list td {
+    padding: 12px;
+    text-align: left;
+}
+
+table.book_list th {
+    background-color: #333333;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+table.book_list tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+table.book_list tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+table.book_list tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* 경고 메시지 스타일 */
+.book_list tbody tr td[colspan="8"] {
+    text-align: center;
+    color: #777777;
+}
+
+/* 추가 스타일 */
+.title {
+    font-weight: bold;
+    color: #333333;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #555555;
+}

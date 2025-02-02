@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bookinfo.mapper.bookinfoMapper">
+	<select id="selectBookList"
+		resultType="bookinfo.dto.BookinfoDto">
+		SELECT
+			book_id AS bookId,
+			title,
+			author,
+			publisher,
+			DATE_FORMAT(published_date, '%Y-%m-%d') AS date,
+			isbn AS Isbn,
+			description AS text,
+			DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS createdAt,
+			DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updatedAt
+		FROM Books
+	</select>
+
+	<select id="selectBookDetail" parameterType="int"
+		resultType="bookinfo.dto.BookinfoDto">
+		SELECT
+			book_id AS bookId,
+			title,
+			author,
+			publisher,
+			DATE_FORMAT(published_date, '%Y-%m-%d') AS date,
+			isbn AS Isbn,
+			description AS text,
+			DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS createdAt,
+			DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updatedAt
+		FROM Books
+		WHERE book_id = #{bookId}
+	</select>
+
+	<select id="selectBookCoverFileList" parameterType="int"
+		resultType="bookinfo.dto.BookCoverDto">
+		SELECT
+			image_id AS imageId,
+			book_id AS bookId,
+			image_url AS imageUrl,
+			DATE_format(created_at, '%Y-%m-%d %H:%i:%s') AS createdAt
+		FROM bookImages
+		WHERE book_id = #{bookId}
+	</select>
+
+	<select id="selectBookCoverFileInfo" parameterType="map"
+		resultType="bookinfo.dto.BookCoverDto">
+		SELECT
+			book_id AS bookId,
+			image_url AS imageUrl
+		FROM bookImages
+		WHERE image_id = #{imageId} and book_id = #{bookId}
+	</select>
+
+	<insert id="insertBookinfo"
+		parameterType="bookinfo.dto.BookinfoDto" useGeneratedKeys="true"
+		keyProperty="bookId">
+		INSERT INTO Books (title, author, publisher, published_date, isbn,
+		description, created_at, updated_at)
+		VALUES (#{title}, #{author}, #{publisher}, #{date}, #{Isbn}, #{text},
+		CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+	</insert>
+
+	<insert id="insertBookCoverFileList"
+		parameterType="bookinfo.dto.BookCoverDto">
+		INSERT INTO BookImages (book_id, image_url, created_at)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.bookId}, #{item.imageUrl}, CURRENT_TIMESTAMP)
+		</foreach>
+	</insert>
+
+	<update id="updateBookinfo"
+		parameterType="bookinfo.dto.BookinfoDto">
+		UPDATE books
+			SET title = #{title},
+				author = #{author},
+				publisher = #{publisher},
+				published_date = #{date},
+				isbn = #{Isbn},
+				description = #{text}
+		WHERE book_id = #{bookId}
+	</update>
+
+	<delete id="deleteBookinfo"
+		parameterType="bookinfo.dto.BookinfoDto">
+		DELETE FROM books
+		WHERE book_id = #{bookId}
+	</delete>
+</mapper>

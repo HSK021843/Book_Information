@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 세부 정보</title>
+    <link rel="stylesheet" th:href="@{/css/bookDetail.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>도서 세부 정보</h2>
+        
+        <form id="frm" method="post">
+            <input type="hidden" name="bookId" th:value="${book.bookId}" />
+            
+            <table class="book_detail">
+                <tr>
+                    <th>제목</th>
+                    <td>
+                        <input type="text" 
+                               name="title" 
+                               th:value="${book.title}"
+                               placeholder="도서 제목을 입력하세요"
+                               style="width:100%; font-size:1.1em; padding:0.5em;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>저자</th>
+                    <td>
+                        <input type="text" 
+                               name="author" 
+                               th:value="${book.author}"
+                               placeholder="저자를 입력하세요"
+                               style="width:100%; font-size:1.1em; padding:0.5em;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>출판사</th>
+                    <td>
+                        <input type="text" 
+                               name="publisher" 
+                               th:value="${book.publisher}"
+                               placeholder="출판사를 입력하세요"
+                               style="width:100%; font-size:1.1em; padding:0.5em;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>출판일</th>
+                    <td>
+                        <input type="date" 
+                               name="date" 
+                               th:value="${book.date}"
+                               style="width:100%; font-size:1.1em; padding:0.5em;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>ISBN</th>
+                    <td>
+                        <input type="text" 
+                               name="isbn" 
+                               th:value="${book.isbn}"
+                               placeholder="ISBN을 입력하세요"
+                               style="width:100%; font-size:1.1em; padding:0.5em;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>도서 설명</th>
+                    <td>
+                        <!-- rows="10"로 기존보다 높이를 늘려서 더 크게 보이게 함 -->
+                        <textarea name="text"
+                                  rows="10"
+                                  style="width:100%; font-size:1.1em; padding:0.5em;"
+                                  placeholder="도서 설명을 입력하세요"
+                                  th:text="${book.text}"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                	<th>표지 이미지</th>
+                	<td>
+                		<ul style="list-style-type: none; padding-left: 0;">
+		                    <li th:each="file : ${book.fileInfoList}">
+		                        <a th:href="@{/bookinfo/downloadBookCover.do(imageId=${file.imageId}, bookId=${file.bookId})}"
+       							   th:text="|${file.imageUrl}|"></a>
+		                    </li>
+                		</ul>
+               		</td>
+            </table>
+            
+            
+            <input type="button" id="list" class="btn" value="목록으로" />
+            <input type="button" id="update" class="btn" value="수정하기" />
+            <input type="button" id="delete" class="btn" value="삭제하기" />
+        </form>
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            $(function() {
+                $("#list").on("click", function() {
+                    location.href = "openBookList.do";
+                });
+                
+                $("#update").on("click", function() {
+                    let frm = $("#frm")[0];
+                    frm.action = "updateBookinfo.do";
+                    frm.submit();
+                });
+
+                $("#delete").on("click", function() {
+                    let frm = $("#frm")[0];
+                    frm.action = "deleteBookinfo.do";
+                    frm.submit();
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
