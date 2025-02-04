@@ -22,7 +22,9 @@ import bookinfo.dto.BookCoverDto;
 import bookinfo.dto.BookinfoDto;
 import bookinfo.service.BookinfoService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class RestController {
 	@Autowired
@@ -43,14 +45,14 @@ public class RestController {
 
 	@GetMapping("/bookinfo/write")
 	public String openInfoWrite() throws Exception {
-		return "/bookinfo/restInfoWrite";
+		return "/bookinfo/restBookWrite";
 	}
 	
 	@PostMapping("/bookinfo/write")
 	public String insertBookInfo(BookinfoDto bookinfoDto, MultipartHttpServletRequest request) throws Exception {
 		bookinfoService.insertBookinfo(bookinfoDto, request);
 
-		return "redirect:/bookinfo/openBookList.do";
+		return "redirect:/bookinfo";
 	}
 
 	@GetMapping("/bookinfo/{bookId}")
@@ -69,7 +71,7 @@ public class RestController {
 		return "redirect:/bookinfo";
 	}
 	
-	@PostMapping("/bookinfo/{bookId}o")
+	@PostMapping("/bookinfo/{bookId}")
 	public String deleteBookinfo(@RequestParam("bookId") int bookId) throws Exception {
 		bookinfoService.deleteBookinfo(bookId);
 		return "redirect:/bookinfo";
